@@ -1,0 +1,111 @@
+server:
+  port: 8080
+  error:
+    include-binding-errors: always
+    include-message: always
+
+spring:
+  config:
+    import: optional:file:/Users/mac/Documents/rehire/.env[.properties]
+  application:
+    name: "rehire"
+  profiles:
+    active: "prod"
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  sql:
+    init:
+      mode: always
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  mail:
+    host: smtp.mail.yahoo.com
+    port: 465
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            socketFactory:
+              class: javax.net.ssl.SSLSocketFactory
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+jwt:
+  key: ${JWT_KEY}
+  header: ${JWT_HEADER}
+
+cloudinary:
+  name: ${CLOUDINARY_NAME}
+  api_key: ${CLOUDINARY_API_KEY}
+  secret: ${CLOUDINARY_SECRET}
+
+rabbitmq:
+  queue:
+    email:
+      name: email_queue
+  exchange:
+    email:
+      name: email_exchange
+  binding:
+    email:
+      name: email_routing_key
+
+frontend:
+  url: ${FRONTEND_URL}
+
+email:
+  username: ${EMAIL_USERNAME}
+
+langchain4j:
+  ollama:
+    chat-model:
+      base-url: http://localhost:11434
+      model-name: llama3.2:1b
+      temperature: 0.0
+      timeout: PT300S
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      sliding-window-size: 10
+      permitted-number-of-calls-in-half-open-state: 2
+      failure-rate-threshold: 50
+      wait-duration-in-open-state: 10000
+
+resilience4j.retry:
+  configs:
+    default:
+      max-attempts: 3
+      wait-duration: 500
+      enable-exponential-backoff: true
+      exponential-backoff-multiplier: 2
+      ignore-exceptions:
+        - java.lang.NullPointerException
+      retry-exceptions:
+        - java.util.concurrent.TimeoutException
+
+resilience4j.ratelimiter:
+  configs:
+    default:
+      timeout-duration: 1000
+      limit-refresh-period: 5000
+      limit-for-period: 1
