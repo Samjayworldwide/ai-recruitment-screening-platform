@@ -2,7 +2,7 @@
 
 An AI-powered recruitment screening system that helps organizations efficiently filter job applicants, shortlist qualified candidates, and communicate hiring decisions at scale.
 
-This platform enables recruiters to define custom job application forms, collect resumes before a deadline, and leverage AI to evaluate candidates based on recruiter-defined criteria — drastically reducing manual screening effort.
+This platform enables recruiters to define custom job application forms, collect resumes before a deadline, and leverage AI to evaluate candidates based on recruiter-defined criteria, drastically reducing manual screening effort.
 
 ---
 
